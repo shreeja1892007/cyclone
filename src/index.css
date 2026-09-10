@@ -1,0 +1,446 @@
+/* ==========================================================================
+   CYCLOVISION AI — SCIENTIFIC DESIGN SYSTEM
+   Dark Earth-Observation & Remote Sensing Aesthetic
+   ========================================================================== */
+
+:root {
+  /* Color Palette — Deep Ocean & Atmospheric Science */
+  --bg-space: #04080f;
+  --bg-canvas: #070d18;
+  --bg-surface: #0c1527;
+  --bg-surface-elevated: #111d35;
+  --bg-surface-hover: #172645;
+  --bg-card: #0f192d;
+  --bg-card-border: rgba(148, 163, 184, 0.14);
+  --bg-card-border-active: rgba(0, 229, 255, 0.4);
+
+  /* Accents */
+  --accent-cyan: #00e5ff;
+  --accent-cyan-dim: rgba(0, 229, 255, 0.12);
+  --accent-blue: #0284c7;
+  --accent-blue-light: #38bdf8;
+  --accent-teal: #14b8a6;
+  --accent-teal-dim: rgba(20, 184, 166, 0.12);
+
+  /* Scientific Status Colors */
+  --status-available: #10b981;
+  --status-available-bg: rgba(16, 185, 129, 0.12);
+  --status-caution: #f59e0b;
+  --status-caution-bg: rgba(245, 158, 11, 0.12);
+  --status-missing: #ef4444;
+  --status-missing-bg: rgba(239, 68, 68, 0.12);
+  --status-interpolated: #8b5cf6;
+  --status-interpolated-bg: rgba(139, 92, 246, 0.12);
+  --status-not-used: #64748b;
+  --status-not-used-bg: rgba(100, 116, 139, 0.12);
+
+  /* Typography */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-dim: #475569;
+  --text-accent: #00e5ff;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  /* Spacing (8px grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 15px rgba(0, 229, 255, 0.15);
+
+  /* Layout */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --header-height: 64px;
+  --max-content-width: 1760px;
+}
+
+/* Reset & Base Setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Typography styles */
+h1, .text-h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+h2, .text-h2 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+h3, .text-h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.text-metric {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.text-submetric {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.text-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Focus and accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Base App Layout */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-canvas);
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  margin-left: var(--sidebar-width);
+  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.main-wrapper.sidebar-collapsed {
+  margin-left: var(--sidebar-collapsed-width);
+}
+
+.main-content {
+  flex: 1;
+  padding: var(--space-5);
+  max-width: var(--max-content-width);
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Grid System */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
+}
+
+/* Scientific Cards */
+.sci-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sci-card:hover {
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.sci-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.sci-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Badges & Status Indicators */
+.sci-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.sci-badge-cyan {
+  background-color: var(--accent-cyan-dim);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+}
+
+.sci-badge-teal {
+  background-color: var(--accent-teal-dim);
+  color: var(--accent-teal);
+  border: 1px solid rgba(20, 184, 166, 0.25);
+}
+
+.sci-badge-amber {
+  background-color: var(--status-caution-bg);
+  color: var(--status-caution);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.sci-badge-green {
+  background-color: var(--status-available-bg);
+  color: var(--status-available);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.sci-badge-purple {
+  background-color: var(--status-interpolated-bg);
+  color: var(--status-interpolated);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.sci-badge-neutral {
+  background-color: var(--status-not-used-bg);
+  color: var(--text-secondary);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+/* Buttons */
+.sci-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--bg-card-border);
+  transition: all 0.18s ease;
+}
+
+.sci-btn:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #ffffff;
+}
+
+.sci-btn-primary {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.3), rgba(0, 229, 255, 0.2));
+  border-color: rgba(0, 229, 255, 0.4);
+  color: var(--accent-cyan);
+}
+
+.sci-btn-primary:hover {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.5), rgba(0, 229, 255, 0.35));
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.2);
+}
+
+.sci-btn-sm {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.sci-btn-icon {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+}
+
+/* Select & Inputs */
+.sci-select {
+  background-color: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.sci-select:focus {
+  border-color: var(--accent-cyan);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-canvas);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.35);
+}
+
+/* Leaflet Map overrides for dark scientific theme */
+.leaflet-container {
+  background: #040811 !important;
+  font-family: var(--font-sans) !important;
+  border-radius: var(--radius-md);
+}
+
+.leaflet-bar {
+  border: 1px solid var(--bg-card-border) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.leaflet-bar a {
+  background-color: var(--bg-surface-elevated) !important;
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--bg-card-border) !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: var(--bg-surface-hover) !important;
+  color: var(--accent-cyan) !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: var(--bg-surface-elevated) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--accent-cyan) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-lg) !important;
+  padding: 2px !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--bg-surface-elevated) !important;
+}
+
+/* Pulse animation for active cyclone center */
+@keyframes cyclone-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7);
+  }
+  70% {
+    transform: scale(1.1);
+    box-shadow: 0 0 0 12px rgba(0, 229, 255, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+  }
+}
+
+.cyclone-marker-active {
+  width: 16px;
+  height: 16px;
+  background-color: var(--accent-cyan);
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  animation: cyclone-pulse 2.2s infinite ease-in-out;
+}
+
+.cyclone-marker-observed {
+  width: 11px;
+  height: 11px;
+  background-color: #38bdf8;
+  border: 2px solid #0f172a;
+  border-radius: 50%;
+}
+
+.cyclone-marker-estimated {
+  width: 13px;
+  height: 13px;
+  background-color: transparent;
+  border: 2px dashed #00e5ff;
+  border-radius: 50%;
+}
+
+/* Media queries for desktop-first responsive behavior */
+@media (max-width: 1440px) {
+  :root {
+    --sidebar-width: 240px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .main-wrapper {
+    margin-left: 0 !important;
+  }
+}
